@@ -66,6 +66,6 @@ for (x in 1:NROW(site_list)) {
 site_temps <- inner_join(temps2,site_pixels,by=c("latitude"="Lat","longitude"="Long"))
 ## Save with a useful filename!
 write.csv(site_temps,"Sat_Temps_July_2019.csv",row.names=FALSE)
-## Note - only 18 sites appear in the final output. 
-## The remaining 13 sites are too close to land and are masked from the SST pixels.(One site, BB.A, has missing coordinates)
+## Note - only 19 sites appear in the final output. 
+## The remaining 13 sites are too close to land and are masked from the SST pixels.
 ## So, SST pixels are available for 6 AK sites, 1 BC site, 5 WA sites, 2 BB, 2 OR, and 2 SD
