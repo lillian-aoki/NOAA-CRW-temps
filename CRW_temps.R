@@ -1,7 +1,7 @@
 library(ggplot2)
 
 ## read-in data from NOAA Coastal Reef Watch, for full range of NSF sites during July 2019
-temps <- read.csv("dhw_5km_8211_97f8_5ea5.csv",header=TRUE)[-1,]
+temps <- read.csv("dhw_5km_8211_97f8_5ea5.csv",header=TRUE,colClasses = "character")[-1,]
 ## Subset dataset to look at only the SST and SSTANOMALY (difference compared to long-term mean)
 temps2 <- temps[,c(1,2,3,7,8)]
 ## The variables are read in as factors - convert to numeric, then character and drop empty rows
@@ -57,6 +57,8 @@ ggplot(WA.sites,aes(x=SiteCode,y=CRW_SSTANOMALY))+geom_boxplot()+
        subtitle = "5-km resolution")+
   theme_bw()
 
+write.csv(WA.sites,"WA.NOAA.temps.csv",row.names=FALSE)
+
 WA.A <- WA[WA$latitude==48.47500 & WA$longitude==-122.975,]
 WA.B <- WA[WA$latitude==48.47500 & WA$longitude==-123.075,]
 WA.C <- WA[WA$latitude==48.67501 & WA$longitude==-122.975,]
@@ -69,20 +71,31 @@ WA$SiteCode <- ifelse(WA$latitude==48.47500 & WA$longitude== -122.975,"A",
                                     ifelse(WA$latitude==48.72500 & WA$longitude== -123.075, "D",
                                            ifelse(WA$latitude<48.62501 & WA$latitude>48.52500
                                                   & WA$longitude< -122.875 & WA$longitude> -123.025, "E","NA")))))
+
+WA$SiteCode <- ifelse(WA$latitude==48.47500 & WA$longitude== -122.975,"A",
+                      ifelse(WA$latitude==48.47500 & WA$longitude== -123.075, "B",
+                             ifelse(WA$latitude==48.67501 & WA$longitude== -122.975, "C",
+                                    ifelse(WA$latitude==48.72500 & WA$longitude== -123.075, "D",
+                                           ifelse(WA$latitude==48.575005 & WA$longitude==-122.924995, "E","NA")))))
+
+try <- subset(WA,longitude== -122.975 & latitude<48.62501 & latitude>48.52500)
+try <- subset(WA,longitude== -122.975)
+try <- subset(WA,latitude== 48.575005)
+#latitude = 48.575 is problematic - why??
+class(WA$longitude)
+WA$longitude <- gsub("-122.925","-122.925",WA$longitude)
+rm(WA.sites)
 WA.sites <- subset(WA,SiteCode!="NA")
+
+length(subset(WA.sites,SiteCode=="E"))
+
 ggplot(WA.sites,aes(x=SiteCode,y=CRW_SST))+geom_boxplot()
 ggplot(WA.sites,aes(x=SiteCode,y=CRW_SSTANOMALY))+geom_boxplot()
 
 ggplot(WA.A,aes(x=time,y=CRW_SSTANOMALY))+geom_point()
+lat <- unique(WA$latitude)
+lat
+long <- unique(WA$longitude)
+long
 
-subset(WA,longitude==-122.925 )
-class(temps2$time)
-class(temps2$CRW_SSTANOMALY)
-class(temps2$latitude)
-x <- findInterval(WA$latitude,48.4685835)
-library(data.table)
-dt = data.table(WA) 
-setkey(dt, latitude) # sorts the data
-dt[J(48.4685835), roll = "nearest"]
-
-WA.A <- WA[WA$latitude ==48.4685,]
+matrix(long,lat)
