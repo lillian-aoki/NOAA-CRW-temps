@@ -40,8 +40,8 @@ for(i in levels(combo$Region.SiteCode)){
 ggplot(data=combo[combo$Region=="AK",],aes(x=CRW_SST,y=DailyMean))+geom_point()+
   stat_smooth(method="lm",col="dark grey")+
   geom_abline(slope=1,intercept=0,linetype="dashed")+
-  geom_text(data=sig_table[sig_table$Region=="AK"],aes(x=13,y=18,label=paste("p =",Pvalue)))+
-  geom_text(data=sig_table[sig_table$Region=="AK"],aes(x=13,y=18.5,label=paste("Adj R2 =",AdjR2)))+
+  geom_text(data=sig_table[sig_table$Region=="AK",],aes(x=13,y=18,label=paste("p =",Pvalue)))+
+  geom_text(data=sig_table[sig_table$Region=="AK",],aes(x=13,y=18.5,label=paste("Adj R2 =",AdjR2)))+
   facet_wrap(~SiteCode)+
   xlab("Nighttime SST via satellite (ºC)")+
   ylab("Daily mean temp via HOBO logger (ºC)")+
@@ -49,6 +49,20 @@ ggplot(data=combo[combo$Region=="AK",],aes(x=CRW_SST,y=DailyMean))+geom_point()+
        subtitle = "July 2019")+
   theme_bw()+
   theme(strip.background = element_rect(fill="white"))
+
+ggplot(data=combo[combo$Region=="BC",],aes(x=CRW_SST,y=DailyMean))+geom_point()+
+  stat_smooth(method="lm",col="dark grey")+
+  geom_abline(slope=1,intercept=0,linetype="dashed")+
+  geom_text(data=sig_table[sig_table$Region=="BC",],aes(x=13,y=18,label=paste("p =",Pvalue)))+
+  geom_text(data=sig_table[sig_table$Region=="BC",],aes(x=13,y=18.5,label=paste("Adj R2 =",AdjR2)))+
+  facet_wrap(~SiteCode)+
+  xlab("Nighttime SST via satellite (ºC)")+
+  ylab("Daily mean temp via HOBO logger (ºC)")+
+  labs(title="Comparing satellite and in situ temperatures - British Columbia",
+       subtitle = "July 2019")+
+  theme_bw()+
+  theme(strip.background = element_rect(fill="white"))
+
 
 ggplot(data=combo[combo$Region=="WA",],aes(x=CRW_SST,y=DailyMean))+geom_point()+
   stat_smooth(method="lm",col="dark grey")+

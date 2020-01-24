@@ -1,0 +1,66 @@
+---
+title: "SST data for July 2019 new"
+author: "LRA"
+date: "1/24/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+Region_order <- c("AK","BC","WA","OR","BB","SD")
+SiteCode_order <- c("A","B","C","D","E","F")
+```
+
+```{r data, echo=FALSE}
+site_temps <- read.csv("Sat_Temps_July_2019.csv")
+site_temps$Region <- ordered(site_temps$Region,levels=Region_order)
+site_temps$SiteCode <- ordered(site_temps$SiteCode,levels=SiteCode_order)
+site_temps$time <- as.POSIXct(site_temps$time,tz="")
+```
+
+Here, I am using data temperature data from NOAA's 5km Geo-Polar Blended Night-time SST
+
+Data were downloaded from the PacIOOS's ERDDAP server (https://pae-paha.pacioos.hawaii.edu/erddap/griddap/dhw_5km.html)
+
+Two variables of interest: SST and SST Anomaly, which is the difference in the SST compared to the long-term record.
+
+Plots show the distributions of SST and SST Anomaly at 19 of the 32 NSF sites surveyed for SWD in July 2019.
+
+At the remainig 13 sites, the satellite data are not available for the closest pixel
+
+
+```{r julySST, echo=FALSE}
+ggplot(site_temps,aes(x=time,y=CRW_SST,color=SiteCode))+geom_point()+
+  facet_wrap(~Region)+
+  xlab("Date")+
+  ylab("Nighttime SST measured via satellite (ºC)")+
+  labs(title="SST during July 2019 across NSF sites",
+       subtitle="5-km resolution")+
+  theme_bw()+
+  theme(strip.background = element_rect(fill="white"))
+
+ggplot(site_temps,aes(x=SiteCode,y=CRW_SST))+geom_boxplot()+
+  stat_summary(fun.y=mean,geom="point",shape=8,size=2)+
+  facet_wrap(~Region)+
+  xlab("Site Code")+
+  ylab("SST (ºC)")+
+  labs(title = "SST in July 2019 from satellite data",
+       subtitle = "5-km resolution")+
+  theme_bw()+
+  theme(strip.background = element_rect(fill="white"))
+```
+
+```{r julySSTANOMALY, echo=FALSE}
+ggplot(site_temps,aes(x=SiteCode,y=CRW_SSTANOMALY))+geom_boxplot()+
+  stat_summary(fun.y=mean,geom="point",shape=8,size=2)+
+  facet_wrap(~Region)+
+  xlab("Site Code")+
+  ylab("SST Anomaly (ºC)")+
+  labs(title = "SST Anomaly in July 2019 from satellite data",
+       subtitle = "5-km resolution")+
+  theme_bw()+
+  theme(strip.background = element_rect(fill="white"))
+
+```
+
