@@ -64,6 +64,49 @@ ggplot(all_summ2,aes(x=DailyMean,y=sev,color=Region,shape=TidalHeight))+geom_poi
   labs(title="WD severity against in situ logger temps",
        subtitle = "July 2019")+
     theme_bw()
+
+ggplot(all_summ2,aes(x=DailyMax,y=prev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily max temp (ºC)")+
+  ylab("Prevlance")+
+  labs(title="WD prevlance against in situ logger temps",
+       subtitle = "July 2019")+
+  theme_bw()
+
+ggplot(all_summ2,aes(x=DailyMax,y=sev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily max temp (ºC)")+
+  ylab("Severity")+
+  labs(title="WD severity against in situ logger temps",
+       subtitle = "July 2019")+
+  theme_bw()
+
+ggplot(all_summ2,aes(x=DailySD,y=prev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily sd temp (ºC)")+
+  ylab("Prevlance")+
+  labs(title="WD prevlance against in situ logger temps",
+       subtitle = "July 2019")+
+  theme_bw()
+
+ggplot(all_summ2,aes(x=DailySD,y=sev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily sd temp (ºC)")+
+  ylab("Severity")+
+  labs(title="WD severity against in situ logger temps",
+       subtitle = "July 2019")+
+  theme_bw()
+
+ggplot(all_summ2,aes(x=DailyRange,y=prev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily sd temp (ºC)")+
+  ylab("Prevlance")+
+  labs(title="WD prevlance against in situ logger temps",
+       subtitle = "July 2019")+
+  theme_bw()
+
+ggplot(all_summ2,aes(x=DailyRange,y=sev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily sd temp (ºC)")+
+  ylab("Severity")+
+  labs(title="WD severity against in situ logger temps",
+       subtitle = "July 2019")+
+  theme_bw()
+
 ```
 
 ### Satellite temperatures
