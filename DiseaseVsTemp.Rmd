@@ -1,0 +1,96 @@
+---
+title: "DiseaseTemp"
+author: "LRA"
+date: "1/25/2020"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+Region_order <- c("AK","BC","WA","OR","BB","SD")
+SiteCode_order <- c("A","B","C","D","E","F")
+```
+
+### Plots of wasting disease metrics against mid-summer temperature
+
+```{r data, echo=FALSE, warning=FALSE}
+site_temps <- read.csv("Sat_Temps_July_2019.csv")
+site_temps$Region <- ordered(site_temps$Region,levels=Region_order)
+site_temps$SiteCode <- ordered(site_temps$SiteCode,levels=SiteCode_order)
+
+disease_most_summ <- read.csv("~/Box/projects/NSF WD/Eelisa/WD-disease-data/Measured_Disease_summ.csv")
+disease_most_summ2 <- disease_most_summ %>%
+  group_by(Region,SiteCode)%>%
+  summarise(prev=mean(prev),sev=mean(sev),lesion=mean(lesion),
+            count=sum(count),percent=mean(percent))
+
+site_temps_summ <- site_temps%>%
+  group_by(Region,SiteCode,latitude,longitude)%>%
+  summarise(SST=mean(CRW_SST),SSTANOMALY=mean(CRW_SSTANOMALY))
+
+site_temps_summ <- left_join(site_temps_summ,disease_most_summ2,by=c("Region","SiteCode"))
+site_temps_summ$Region <- ordered(site_temps_summ$Region,levels=Region_order)
+
+all_summ <- read.csv("~/Box/projects/NSF WD/HOBOs/WD-temperature/Allsites.summJuly.2019.csv")
+all_summ2 <- all_summ %>%
+  group_by(Region,SiteCode,TidalHeight)%>%
+  summarise(DailyMean=mean(DailyMean),DailyMax=mean(DailyMax),
+            DailyRange=mean(DailyRange),DailySD=mean(DailySD))
+all_summ2$TidalHeight <- ifelse(all_summ2$TidalHeight=="Lower"|all_summ2$TidalHeight=="Edge of bed","Lower/Edge","Upper")
+disease_most_summ3 <- disease_most_summ %>%
+  group_by(Region,SiteCode,TidalHeight)%>%
+  summarise(prev=mean(prev),sev=mean(sev),lesion=mean(lesion),
+            count=sum(count),percent=mean(percent))
+disease_most_summ3$TidalHeight <- ifelse(disease_most_summ3$TidalHeight=="L","Lower/Edge","Upper")
+all_summ2 <- left_join(all_summ2,disease_most_summ3,by=c("Region","SiteCode","TidalHeight"))
+all_summ2$Region <- ordered(all_summ2$Region,levels=Region_order)
+```
+
+### In situ temperatures
+
+```{r disease_in_situ, echo=FALSE}
+ggplot(all_summ2,aes(x=DailyMean,y=prev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily mean temp (ºC)")+
+  ylab("Prevlance")+
+  labs(title="WD prevlance against in situ logger temps",
+       subtitle = "July 2019")+
+  theme_bw()
+
+ggplot(all_summ2,aes(x=DailyMean,y=sev,color=Region,shape=TidalHeight))+geom_point()+
+  xlab("Daily mean temp (ºC)")+
+  ylab("Severity")+
+  labs(title="WD severity against in situ logger temps",
+       subtitle = "July 2019")+
+    theme_bw()
+```
+
+### Satellite temperatures
+
+```{r disease_sat, echo=FALSE}
+ggplot(site_temps_summ,aes(x=SST,y=prev,color=Region))+geom_point()+
+  xlab("Nighttime SST (ºC)")+
+  ylab("Prevlance")+
+  labs(title="WD prevlance against satellite SST",
+       subtitle = "July 2019")+
+  theme_bw()
+ggplot(site_temps_summ,aes(x=SST,y=sev,color=Region))+geom_point()+
+  xlab("Nighttime SST (ºC)")+
+  ylab("Severity")+
+  labs(title="WD severity against satellite SST",
+       subtitle = "July 2019")+
+  theme_bw()
+ggplot(site_temps_summ,aes(x=SSTANOMALY,y=prev,color=Region))+geom_point()+
+  xlab("SST anomaly (ºC)")+
+  ylab("Prevlance")+
+  labs(title="WD prevlance against satellite SST anomlay",
+       subtitle = "July 2019")+
+  theme_bw()
+ggplot(site_temps_summ,aes(x=SSTANOMALY,y=sev,color=Region))+geom_point()+
+  xlab("SST anomaly (ºC)")+
+  ylab("Severity")+
+  labs(title="WD severity against satellite SST anomlay",
+       subtitle = "July 2019")+
+  theme_bw()
+```
