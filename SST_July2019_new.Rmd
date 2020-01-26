@@ -31,10 +31,10 @@ At the remainig 13 sites, the satellite data are not available for the closest p
 
 
 ```{r julySST, echo=FALSE}
-ggplot(site_temps,aes(x=time,y=CRW_SST,color=SiteCode))+geom_point()+
+ggplot(site_temps,aes(x=time,y=CRW_SST,color=SiteCode))+geom_jitter()+
   facet_wrap(~Region)+
   xlab("Date")+
-  ylab("Nighttime SST measured via satellite (ºC)")+
+  ylab("Nighttime SST (ºC)")+
   labs(title="SST during July 2019 across NSF sites",
        subtitle="5-km resolution")+
   theme_bw()+
@@ -52,6 +52,15 @@ ggplot(site_temps,aes(x=SiteCode,y=CRW_SST))+geom_boxplot()+
 ```
 
 ```{r julySSTANOMALY, echo=FALSE}
+ggplot(site_temps,aes(x=time,y=CRW_SSTANOMALY,color=SiteCode))+geom_jitter()+
+  facet_wrap(~Region)+
+  xlab("Date")+
+  ylab("SST Anomaly (ºC)")+
+  labs(title="SST Anomaly during July 2019 across NSF sites",
+       subtitle="5-km resolution")+
+  theme_bw()+
+  theme(strip.background = element_rect(fill="white"))
+
 ggplot(site_temps,aes(x=SiteCode,y=CRW_SSTANOMALY))+geom_boxplot()+
   stat_summary(fun.y=mean,geom="point",shape=8,size=2)+
   facet_wrap(~Region)+

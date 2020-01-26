@@ -21,4 +21,4 @@ pixel
 
 ![](SST_July2019_new_files/figure-gfm/julySST-1.png)<!-- -->![](SST_July2019_new_files/figure-gfm/julySST-2.png)<!-- -->
 
-![](SST_July2019_new_files/figure-gfm/julySSTANOMALY-1.png)<!-- -->
+![](SST_July2019_new_files/figure-gfm/julySSTANOMALY-1.png)<!-- -->![](SST_July2019_new_files/figure-gfm/julySSTANOMALY-2.png)<!-- -->
