@@ -53,57 +53,57 @@ all_summ2$Region <- ordered(all_summ2$Region,levels=Region_order)
 ```{r disease_in_situ, echo=FALSE}
 ggplot(all_summ2,aes(x=DailyMean,y=prev,color=Region,shape=TidalHeight))+geom_point()+
   xlab("Daily mean temp (ºC)")+
-  ylab("Prevlance")+
-  labs(title="WD prevlance against in situ logger temps",
+  ylab("Prevalence")+
+  labs(title="WD prevlance against in situ logger temps - Daily Mean",
        subtitle = "July 2019")+
   theme_bw()
 
 ggplot(all_summ2,aes(x=DailyMean,y=sev,color=Region,shape=TidalHeight))+geom_point()+
   xlab("Daily mean temp (ºC)")+
   ylab("Severity")+
-  labs(title="WD severity against in situ logger temps",
+  labs(title="WD severity against in situ logger temps - Daily Mean",
        subtitle = "July 2019")+
     theme_bw()
 
 ggplot(all_summ2,aes(x=DailyMax,y=prev,color=Region,shape=TidalHeight))+geom_point()+
   xlab("Daily max temp (ºC)")+
-  ylab("Prevlance")+
-  labs(title="WD prevlance against in situ logger temps",
+  ylab("Prevalence")+
+  labs(title="WD prevalence against in situ logger temps - Daily Max",
        subtitle = "July 2019")+
   theme_bw()
 
 ggplot(all_summ2,aes(x=DailyMax,y=sev,color=Region,shape=TidalHeight))+geom_point()+
   xlab("Daily max temp (ºC)")+
   ylab("Severity")+
-  labs(title="WD severity against in situ logger temps",
+  labs(title="WD severity against in situ logger temps - Daily Max",
        subtitle = "July 2019")+
   theme_bw()
 
 ggplot(all_summ2,aes(x=DailySD,y=prev,color=Region,shape=TidalHeight))+geom_point()+
   xlab("Daily sd temp (ºC)")+
-  ylab("Prevlance")+
-  labs(title="WD prevlance against in situ logger temps",
+  ylab("Prevalence")+
+  labs(title="WD prevalence against in situ logger temps - Daily SD",
        subtitle = "July 2019")+
   theme_bw()
 
 ggplot(all_summ2,aes(x=DailySD,y=sev,color=Region,shape=TidalHeight))+geom_point()+
   xlab("Daily sd temp (ºC)")+
   ylab("Severity")+
-  labs(title="WD severity against in situ logger temps",
+  labs(title="WD severity against in situ logger temps - Daily SD",
        subtitle = "July 2019")+
   theme_bw()
 
 ggplot(all_summ2,aes(x=DailyRange,y=prev,color=Region,shape=TidalHeight))+geom_point()+
-  xlab("Daily sd temp (ºC)")+
-  ylab("Prevlance")+
-  labs(title="WD prevlance against in situ logger temps",
+  xlab("Daily range temp (ºC)")+
+  ylab("Prevalence")+
+  labs(title="WD prevalence against in situ logger temps - Daily Range",
        subtitle = "July 2019")+
   theme_bw()
 
 ggplot(all_summ2,aes(x=DailyRange,y=sev,color=Region,shape=TidalHeight))+geom_point()+
-  xlab("Daily sd temp (ºC)")+
+  xlab("Daily range temp (ºC)")+
   ylab("Severity")+
-  labs(title="WD severity against in situ logger temps",
+  labs(title="WD severity against in situ logger temps - Daily Range",
        subtitle = "July 2019")+
   theme_bw()
 
@@ -114,8 +114,8 @@ ggplot(all_summ2,aes(x=DailyRange,y=sev,color=Region,shape=TidalHeight))+geom_po
 ```{r disease_sat, echo=FALSE}
 ggplot(site_temps_summ,aes(x=SST,y=prev,color=Region))+geom_point()+
   xlab("Nighttime SST (ºC)")+
-  ylab("Prevlance")+
-  labs(title="WD prevlance against satellite SST",
+  ylab("Prevalence")+
+  labs(title="WD prevalence against satellite SST",
        subtitle = "July 2019")+
   theme_bw()
 ggplot(site_temps_summ,aes(x=SST,y=sev,color=Region))+geom_point()+
@@ -126,8 +126,8 @@ ggplot(site_temps_summ,aes(x=SST,y=sev,color=Region))+geom_point()+
   theme_bw()
 ggplot(site_temps_summ,aes(x=SSTANOMALY,y=prev,color=Region))+geom_point()+
   xlab("SST anomaly (ºC)")+
-  ylab("Prevlance")+
-  labs(title="WD prevlance against satellite SST anomlay",
+  ylab("Prevalence")+
+  labs(title="WD prevalence against satellite SST anomlay",
        subtitle = "July 2019")+
   theme_bw()
 ggplot(site_temps_summ,aes(x=SSTANOMALY,y=sev,color=Region))+geom_point()+
